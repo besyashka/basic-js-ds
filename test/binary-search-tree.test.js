@@ -41,6 +41,7 @@ describe('Binary search tree', () => {
     });
 
     it.optional('root works correctly some values were added', () => {
+      
       const tree = new BinarySearchTree();
       tree.add(2);
       tree.add(3);
