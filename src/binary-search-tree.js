@@ -78,19 +78,72 @@ class BinarySearchTree {
     return null;
   }
 
-  remove(/* data */) {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+  remove(data) {
+    this.rootNode = removeNode(this.rootNode, data);
+    
+    function removeNode(currentNode, data) {
+      if (!currentNode) {
+        return null;
+      }
+      
+      if (data < currentNode.data) {
+        currentNode.left = removeNode(currentNode.left, data);
+        return currentNode;
+      } else if (data > currentNode.data) {
+        currentNode.right = removeNode(currentNode.right, data);
+        return currentNode;
+      } else {
+        if (!currentNode.left && !currentNode.right) {
+          return null;
+        }
+        
+        if (!currentNode.left) {
+          currentNode = currentNode.right;
+          return currentNode;
+        }
+        
+        if (!currentNode.right) {
+          currentNode = currentNode.left;
+          return currentNode;
+        }
+          
+        let minNodeRight = currentNode.right;
+        
+        while (minNodeRight.left) {
+          minNodeRight = minNodeRight.left;
+        }
+
+        currentNode.data = minNodeRight.data;
+        currentNode.right = removeNode(currentNode.right, minNodeRight.data);
+        return currentNode;
+      }
+    }
   }
 
   min() {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+    if (!this.rootNode) {
+      return null;
+    }
+
+    let currentNode = this.rootNode;
+
+    while (currentNode.left) {
+      currentNode = currentNode.left;
+    }
+    return currentNode.data;
   }
 
   max() {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+    if (!this.rootNode) {
+      return null;
+    }
+
+    let currentNode = this.rootNode;
+
+    while (currentNode.right) {
+      currentNode = currentNode.right;
+    }
+    return currentNode.data;
   }
 }
 
